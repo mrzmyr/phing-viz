@@ -5,7 +5,7 @@
 
 ![image](https://travis-ci.org/mrzmyr/phing-viz.png)
 
-# Quick Start
+## Quick Start
 
 #### Install dependencies
 

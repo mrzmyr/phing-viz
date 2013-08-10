@@ -13,6 +13,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
+    bwr: grunt.file.readJSON('.bowerrc'),
 
     dirs: {
       'dist': './dist',
@@ -69,6 +70,12 @@ module.exports = function(grunt) {
           stdout: true
         },
         command: 'node generate -s ' + argv.s
+      },
+      installCompassGem: {
+        options: {
+          stdout: true
+        },
+        command: 'gem install compass'
       }
     },
     copy: {
@@ -80,6 +87,14 @@ module.exports = function(grunt) {
           dest: '<%= dirs.dist %>/', 
           filter: 'isFile'
         }]
+      }
+    },
+    bower: {
+      install: {
+        options: {
+          targetDir: '<%= bwr.directory %>',
+          cleanBowerDir: true 
+        }
       }
     },
     connect: {
@@ -95,7 +110,11 @@ module.exports = function(grunt) {
         path: 'http://127.0.0.1:9001/dist/index.html'
       },
     },
-    clean: ['<%= dirs.dist %>']
+    clean: [
+      '<%= dirs.dist %>', 
+      './.sass-cache',
+      '<%= bwr.directory %>'
+    ]
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -104,11 +123,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-shell');
 
 
-  grunt.registerTask('build', ['clean', 'compass', 'coffee', 'shell:generate', 'copy']);
+  grunt.registerTask('build', ['clean', 'shell:installCompassGem', 'bower:install', 'compass', 'coffee', 'shell:generate', 'copy']);
   grunt.registerTask('run', ['open', 'connect', 'watch:helper']);
   grunt.registerTask('default', ['connect', 'watch']);
 };
