@@ -18,9 +18,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "grunt build"
   },
-  "repository": "",
+  "repository": "http://github.com/mrzmyr/phing-viz.git",
   "keywords": [
     "phing",
     "documentation",
