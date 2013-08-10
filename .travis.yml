@@ -6,7 +6,7 @@ node_js:
   - "0.6"
 
 after_script:
-  - "gem install compass -v"
+  - "gem install compass"
   - "npm install -g grunt-cli"
   - "grunt build"
   - "grunt run"
