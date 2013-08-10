@@ -5,8 +5,9 @@ node_js:
   - "0.8"
   - "0.6"
 
-after_script:
+before_script:
   - "gem install compass"
-  - "npm install -g grunt-cli"
-  - "grunt build"
-  - "grunt run"
+  - "./node_modules/bower/bin/bower install"
+
+after_script:
+  - "./node_modules/grunt-cli/bin/grunt build"

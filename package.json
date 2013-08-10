@@ -16,9 +16,23 @@
     "optimist": "~0.6.0",
     "grunt-contrib-clean": "~0.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-cli": "~0.1.9",
+    "karma-script-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.0",
+    "karma-requirejs": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma": "~0.10.1",
+    "jasmine-node": "~1.11.0",
+    "bower": "~1.1.2"
+  },
   "scripts": {
-    "start": "grunt run"
+    "start": "grunt run",
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "repository": "http://github.com/mrzmyr/phing-viz.git",
   "keywords": [

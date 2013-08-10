@@ -17,6 +17,7 @@ module.exports = function(grunt) {
     dirs: {
       'dist': './dist',
       'src': './src',
+      'test': './test',
       'bwr': './bower_components',
       'root': '.'
     },
@@ -58,7 +59,6 @@ module.exports = function(grunt) {
         options: {
           sassDir: '<%= dirs.src %>/scss',
           cssDir: '<%= dirs.dist %>/css',
-          importPath: ['<%= dirs.bwr %>'],
           environment: 'production'
         }
       }
