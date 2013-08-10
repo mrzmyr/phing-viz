@@ -1,0 +1,33 @@
+<div ng-repeat="phpdoc in targetValue">
+
+  <strong>{{ phpdoc.attr.title }}</strong>
+
+  <div><code>{{ phpdoc.attr.output }}</code> => <code>{{ phpdoc.attr.destdir }}</code></div>
+
+  <ul ng-show="phpdoc.fileset.length > 0">
+    <li ng-repeat="fileset in phpdoc.fileset">
+        <div ng-show="fileset.include.length > 0">
+          Files included:
+          <ul>
+            <li ng-repeat="file in fileset.include">
+              <code>{{ file.attr.name }}</code>
+              <span ng-hide="$index == fileset.include.length - 1">,</span>
+            </li>
+          </ul>
+        </div>
+
+        <div ng-show="fileset.exclude.length > 0">
+          Files excluded:
+          <ul>
+            <li ng-repeat="file in fileset.exclude">
+              <code>{{ file.attr.name }}</code>
+              <span ng-hide="$index == fileset.exclude.length - 1">,</span>
+            </li>
+          </ul>
+        </div>
+      </li>
+  </ul>
+
+  <span ng-show="phpdoc.attr.linksource" class="label">linksource</span>
+  <span ng-show="phpdoc.attr.quiet" class="label">quiet</span>
+</div>

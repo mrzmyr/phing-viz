@@ -1,0 +1,16 @@
+@import 'compass';
+
+.panel:target .panel-heading { background-color: rgb(255, 255, 195); }
+.panel:target .panel-heading {
+  @include transition(all 1s ease);
+}
+
+body {
+  margin: 0 60px;
+}
+
+pre {
+  font-size: 12px;
+  padding: 5px 7px;
+  border-radius: 0;
+}

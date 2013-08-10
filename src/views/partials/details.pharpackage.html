@@ -1,0 +1,31 @@
+<div ng-repeat="pharpackage in targetValue">
+  <dl class="dl-horizontal">
+    <dt>BaseDir<dt> 
+    <dd><code>{{ pharpackage.attr.basedir }}</code></li></dd>
+    <dt>DestFile:</dt>
+    <dd><code>{{ pharpackage.attr.destfile }}</code></dd>
+    <dt>Stub</dt>
+    <dd><code>{{ pharpackage.attr.stub }}</code></dd>
+    <dt>Compression</dt>
+    <dd><code>{{ pharpackage.attr.compression }}</code></dd>
+  </dl>
+  <ul>
+    <li ng-repeat="fileset in pharpackage.fileset">
+    <div ng-show="fileset.include.length > 0">
+    Files included:
+      <span ng-repeat="file in fileset.include">
+        <code>{{ file.attr.name }}</code>
+        <span ng-hide="$index == fileset.include.length - 1">,</span>
+      </span>
+    </div>
+    <div ng-show="fileset.exclude.length > 0">
+    Files excluded:
+      <span ng-repeat="file in fileset.exclude">
+        <code>{{ file.attr.name }}</code>
+        <span ng-hide="$index == fileset.exclude.length - 1">,</span>
+      </span>
+    </div>
+    to <code>{{ fileset.attr.dir }}</code>
+    </li>
+  </ul>
+</div>

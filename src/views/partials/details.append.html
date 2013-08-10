@@ -1,0 +1,9 @@
+<ul>
+	<li ng-repeat="append in targetValue">
+		Append 
+		<code ng-show="append.attr.file">{{ append.attr.file }}</code>
+		<code ng-show="append.attr.text">{{ append.attr.text }}</code>
+		<br>
+		To <code>{{ append.attr.destFile }}</code>
+	</li>
+</ul>

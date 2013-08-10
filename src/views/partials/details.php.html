@@ -1,0 +1,10 @@
+<ul>
+  <li ng-repeat="php in targetValue">
+    <pre>{{ php.attr.returnProperty }} = {{ php.attr.function }}(
+      <span ng-repeat="param in php.param">
+        '{{ param.attr.value }}'
+        <span ng-show="$index != php.param.length -1">,</span>
+      </span>
+    )</pre>
+  </li>
+</ul>

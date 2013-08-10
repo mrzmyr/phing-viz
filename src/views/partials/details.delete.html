@@ -1,0 +1,11 @@
+<div ng-repeat="delete in targetValue">
+	<div ng-show="delete.attr.dir">
+		<pre>{{ delete.attr.dir }}</pre>
+	</div>
+	<div ng-show="!delete.attr.dir">
+		<div ng-repeat="fileset in delete.fileset">
+			Files: <code ng-repeat="file in fileset.include">{{ file.attr.name }}</code><br>
+			from <code>{{ fileset.attr.dir }}</code>
+		</div>
+	</div>
+</div>

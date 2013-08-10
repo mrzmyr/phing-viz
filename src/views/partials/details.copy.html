@@ -1,0 +1,14 @@
+<div ng-repeat="copy in targetValue">
+	<div ng-show="copy.attr.tofile">
+		<code>{{ copy.attr.file }}</code> =>
+		<code>{{ copy.attr.tofile }}</code>
+		<span ng-show="copy.attr.overwrite" class="label">overwrite</span>
+	</div>
+	<div ng-show="copy.attr.todir">
+		<div ng-repeat="fileset in copy.fileset">
+			Files: <code ng-repeat="file in fileset.include">{{ file.attr.name }}</code><br>
+			from <code>{{ fileset.attr.dir }}</code><br>
+			to <code>{{ copy.attr.todir }}</code>
+		</div>
+	</div>
+</div>

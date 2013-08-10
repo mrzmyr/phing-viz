@@ -1,0 +1,15 @@
+{{targetValue}}
+<div ng-repeat="ifValue in targetValue">
+	<div>if 
+		<span ng-repeat="equal in if.equals"> 
+			<code>
+				{{ equal.attr.arg1 }} == {{ equal.attr.arg2 }}
+				<span ng-show="$index != if.equals.length - 1">and</span>
+			</code>
+		</span>
+	</div>
+	<div>then</div> 
+	<ul ng-repeat="then in if.then">
+		<li ng-include="'partials/detials.' + then + '.html'"></li>
+	</ul>
+</div>

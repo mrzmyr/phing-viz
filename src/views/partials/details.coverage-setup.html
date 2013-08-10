@@ -1,0 +1,27 @@
+<div ng-repeat="coverageSetup in targetValue">
+  <strong>Database</strong>: <code>{{ coverageSetup.attr.database }}</code>
+  <ul>
+    <li ng-repeat="fileset in coverageSetup.fileset">
+        <div ng-show="fileset.include.length > 0">
+          Files included:
+          <ul>
+            <li ng-repeat="file in fileset.include">
+              <code>{{ file.attr.name }}</code>
+              <span ng-hide="$index == fileset.include.length - 1">,</span>
+            </li>
+          </ul>
+        </div>
+
+        <div ng-show="fileset.exclude.length > 0">
+          Files excluded:
+          <ul>
+            <li ng-repeat="file in fileset.exclude">
+              <code>{{ file.attr.name }}</code>
+              <span ng-hide="$index == fileset.exclude.length - 1">,</span>
+            </li>
+          </ul>
+        </div>
+      to <code>{{ fileset.attr.dir }}</code>
+    </li>
+  </ul>
+</div>

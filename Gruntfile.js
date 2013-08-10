@@ -1,0 +1,114 @@
+var argv = require('optimist')  
+
+  .usage('Usage: $0 -s [path] -d [path]')
+
+  .alias('s', 'source')
+  .describe('s', 'Path to source XML file')
+  .default('s', './demo/build.xml')
+
+  .argv;
+
+module.exports = function(grunt) {
+
+  grunt.initConfig({
+
+    pkg: grunt.file.readJSON('package.json'),
+
+    dirs: {
+      'dist': './dist',
+      'src': './src',
+      'bwr': './bower_components',
+      'root': '.'
+    },
+
+    watch: {
+      coffee: {
+        files: [
+          '<%= dirs.src %>/js/*.coffee',
+          '<%= dirs.root %>/*.coffee'
+        ],
+        tasks: ['coffee']
+      },
+      styles: {
+        files: ['<%= dirs.src %>/scss/*.scss'],
+        tasks: ['compass']
+      },
+      templates: {
+        files: ['<%= dirs.src %>/views/**/*.html'],
+        tasks: ['copy:views']
+      },
+      helper: {
+        files: [],
+        tasks: []
+      }
+    },
+    coffee: {
+      compile: {
+        files: {
+          'generate.js': 'generate.coffee',
+          '<%= dirs.dist %>/js/phing-viz.js': '<%= dirs.src %>/js/phing-viz.coffee',
+        },
+        options: {
+          sourceMap: true
+        }
+      }
+    },
+    compass: {
+      dist: {
+        options: {
+          sassDir: '<%= dirs.src %>/scss',
+          cssDir: '<%= dirs.dist %>/css',
+          importPath: ['<%= dirs.bwr %>'],
+          environment: 'production'
+        }
+      }
+    },
+    shell: {
+      generate: {
+        options: {
+          stdout: true
+        },
+        command: 'node generate -s ' + argv.s
+      }
+    },
+    copy: {
+      views: {
+        files: [{
+          expand: true, 
+          cwd: '<%= dirs.src %>/views/',
+          src: ['**'], 
+          dest: '<%= dirs.dist %>/', 
+          filter: 'isFile'
+        }]
+      }
+    },
+    connect: {
+      dev: {
+        options: {
+          port: 9001,
+          base: '<%= dirs.root %>'
+        }
+      }
+    },
+    open: {
+      dist: {
+        path: 'http://127.0.0.1:9001/dist/index.html'
+      },
+    },
+    clean: ['<%= dirs.dist %>']
+  });
+
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-open');
+  grunt.loadNpmTasks('grunt-shell');
+
+
+  grunt.registerTask('build', ['clean', 'compass', 'coffee', 'shell:generate', 'copy']);
+  grunt.registerTask('run', ['open', 'connect', 'watch:helper']);
+  grunt.registerTask('default', ['connect', 'watch']);
+};

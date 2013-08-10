@@ -1,0 +1,10 @@
+<div ng-repeat="phpunitreport in targetValue">
+  <strong>{{ phpunitreport.attr.title }}</strong>
+  <ul>
+    <li>Destination: <code>{{ phpunitreport.attr.todir }}</code></li>
+    <li>Style: <code>{{ phpunitreport.attr.styledir }}</code></li>
+    <li>Format: <code>{{ phpunitreport.attr.format }}</code></li>
+    <li>File: <code>{{ phpunitreport.attr.infile }}</code></li>
+  </ul>
+  <span class="label" ng-show="phpunitreport.attr.usesorttable">usesorttable</span>
+</div>

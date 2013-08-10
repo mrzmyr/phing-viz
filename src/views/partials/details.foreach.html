@@ -1,0 +1,9 @@
+<ul>
+	<li ng-repeat="foreach in targetValue">
+		Method: <code>{{ foreach.attr.target }}('{{ foreach.attr.param }}')</code>
+		<div ng-repeat="fileset in foreach.fileset">
+			Files: <code ng-repeat="file in fileset.include">{{ file.attr.name }}</code><br>
+			in <code>{{ fileset.attr.dir }}</code><br>
+		</div>
+	</li>
+</ul>

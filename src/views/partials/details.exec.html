@@ -1,0 +1,6 @@
+<div ng-repeat="exec in targetValue">
+	<pre>{{ exec.attr.command }}</pre>
+	<div ng-show="exec.attr.outputProperty">
+		Output Property: <code>{{ exec.attr.outputProperty }}</code>
+	</div>
+</div>

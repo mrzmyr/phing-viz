@@ -1,0 +1,37 @@
+<div ng-repeat="phpunit in targetValue">
+  <div ng-show="phpunit.attr.dir">
+    <pre>{{ phpunit.attr.dir }}</pre>
+  </div>
+  <strong>Batchtests</strong>
+  <ul ng-show="phpunit.batchtest.length > 0">
+    <li ng-repeat="batchtest in phpunit.batchtest">
+        <div ng-show="batchtest.fileset[0].include.length > 0">
+          Files included:
+          <ul>
+            <li ng-repeat="file in batchtest.fileset[0].include">
+              <code>{{ file.attr.name }}</code>
+              <span ng-hide="$index == batchtest.fileset[0].include.length - 1">,</span>
+            </li>
+          </ul>
+        </div>
+
+        <div ng-show="batchtest.fileset[0].exclude.length > 0">
+          Files excluded:
+          <ul>
+            <li ng-repeat="file in batchtest.fileset[0].exclude">
+              <code>{{ file.attr.name }}</code>
+              <span ng-hide="$index == batchtest.fileset[0].exclude.length - 1">,</span>
+            </li>
+          </ul>
+        </div>
+      </li>
+  </ul>
+
+  <strong>Reporters</strong>
+  <ul>
+    <li ng-repeat="formatter in phpunit.formatter">
+      <code>{{ formatter.attr.type }}</code> => <code>{{ formatter.attr.todir }}</code>
+    </li>
+  </ul>
+  <span ng-show="phpunit.attr.codecoverage" class="label">codecoverage</span>
+</div>

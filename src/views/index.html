@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phing Viz</title>
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/dist/css/style.css">
+</head>
+<body ng-app="phingVizApp" ng-controller="phingVizCtrl">
+
+  <div class="navbar">
+    <div class="row">
+      <div class="col-lg-12">
+        <a class="navbar-brand" href="#">phing Viz</a>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+        </ul>
+        <form class="navbar-form pull-right">
+          <input type="text" ng-model="search.$" placeholder="Search..." class="form-control">
+        </form>
+      </div>      
+    </div>
+  </div>
+
+    <div class="page-header">
+      <h1>Phing targets <small ng-hide="loading">({{ data.target.length }})</small></h1>
+    </div>
+
+    <h1 ng-show="loading" class="text-muted text-center"><i class="icon-spinner icon-spin icon-2x"></i></h1>
+
+    <div class="row">
+
+      <div ng-class="{'col-lg-6': expaneded }" class="col-lg-3" ng-repeat="target in data.target | filter:search">
+        <div class="panel" id="{{ target.attr.name.trim() }}">
+
+          <div class="panel-heading">
+            <h4>
+              <a ng-init="expaneded = false" ng-click="expaneded = !expaneded">{{ target.attr.name }} <div class="pull-right"><i ng-class="{ 'icon-plus-sign': expaneded == false, 'icon-minus-sign': expaneded }"></i></div></a>
+            </h4>
+          </div>
+          <p class="text-muted">{{ target.attr.description }}</p>
+
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="(targetKey, targetValue) in getWithoutAttr(target)">
+
+              <span class="badge">{{ targetValue.length }}</span>
+              <a ng-init="open = false" ng-click="open = !open">{{ targetKey }}</a>
+
+              <div ng-show="open || expaneded">
+                  <div ng-include="'partials/details.' + targetKey + '.html'"></div>
+                  <span ng-show="target.attr.checkreturn" class="label label-success">checkreturn</span>
+                  <span ng-show="target.attr.passthru" class="label label-success">passthru</span>
+              </div>
+            </li>
+          </ul>
+
+          <div ng-show="target.attr.depends" class="panel-footer">
+            <h5>Depends on</h5>
+            <small>
+              <a ng-href="#{{ dep.trim() }}" ng-repeat="dep in target.attr.depends.split(',')">
+                <div>
+                {{ $index + 1 }}. {{ dep }}
+                </div>
+              </a>
+            </small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="/bower_components/lodash/dist/lodash.min.js"></script>
+  <script type="text/javascript" src="/dist/js/phing-viz.js"></script>
+</body>
+</html>

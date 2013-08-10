@@ -1,0 +1,17 @@
+<div ng-repeat="coverageReport in targetValue">
+  <strong>Output</strong>
+  <br>
+  <code>{{ coverageReport.attr.outfile }}</code>
+  <br>
+  <strong>Reports</strong>
+  <ul>
+    <li ng-repeat="report in coverageReport.report">
+      <strong>{{ report.attr.title }}</strong>
+      <ul>
+        <li>Destination: <code>{{ report.attr.todir }}</code></li>
+        <li>Style: <code>{{ report.attr.styledir }}</code></li>
+      </ul>
+      <span class="label" ng-show="report.attr.usesorttable">usesorttable</span>
+    </li>
+  </ul>
+</div>
